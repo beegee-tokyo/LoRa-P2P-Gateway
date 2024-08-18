@@ -157,6 +157,7 @@ bool init_app(void)
 	g_lora_p2p_rx_time = 0;
 	g_rx_continuous = true;
 	// Put Radio into continuous RX mode
+	Radio.Standby();
 	Radio.Rx(0);
 	
 	return true;
