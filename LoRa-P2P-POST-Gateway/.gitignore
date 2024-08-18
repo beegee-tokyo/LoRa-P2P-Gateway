@@ -3,7 +3,5 @@
 .vscode/c_cpp_properties.json
 .vscode/launch.json
 .vscode/ipch
-Netlify.txt
-src/product_uid.h
-Debug-Build
-Build
+Generated
+
