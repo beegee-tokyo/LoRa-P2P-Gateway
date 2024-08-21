@@ -105,7 +105,7 @@ void reconnect_wifi(void)
 }
 
 /**
- * @brief Post the payload to HTTP POST API
+ * @brief Post the payload to HTTP POST API as JSON
  *
  * @param payload char array with the payload (we use JSON here)
  * @param len length of the payload
@@ -122,6 +122,35 @@ bool post_request(char *payload, size_t len)
 
 	// Send HTTP POST request
 	int httpResponseCode = http.POST((uint8_t*) payload, len);
+
+	http.end();
+
+	if ((httpResponseCode != 200))
+	{
+		MYLOG("POST", "Response %d", httpResponseCode);
+		return false;
+	}
+	return true;
+}
+
+/**
+ * @brief Post the payload to HTTP POST API as raw byte array
+ *
+ * @param payload uint8_t array with the payload (we use raw data here)
+ * @param len length of the payload
+ * @return true Post successful
+ * @return false Post failed (WiFi connection or URL problem)
+ */
+bool post_request_raw(uint8_t *payload, size_t len)
+{
+	// Start HTTP client
+	http.begin(client, post_server_raw);
+
+	// Specify content-type header
+	http.addHeader("Content-Type", "application/octet-stream");
+
+	// Send HTTP POST request
+	int httpResponseCode = http.POST((uint8_t *)payload, len);
 
 	http.end();
 

@@ -235,6 +235,26 @@ void app_event_handler(void)
 	{
 		g_task_event_type &= N_PARSE;
 
+#if USE_RAW == 1 // Send RAW payload
+		// Sending the raw payload
+		if (post_request_raw(rcvd_data, rcvd_data_len))
+		{
+			MYLOG("APP", "Node POST RAW sent");
+			if (has_rak1921)
+			{
+				rak1921_add_line((char *)"Node POST RAW sent");
+			}
+		}
+		else
+		{
+			MYLOG("APP", "Node POST RAW failed");
+			if (has_rak1921)
+			{
+				rak1921_add_line((char *)"Node POST RAW failed");
+			}
+		}
+#else // Send JSON formatted payload
+	  // Sending as JSON
 		if (parse_send(rcvd_data, rcvd_data_len))
 		{
 			MYLOG("APP", "Node POST sent");
@@ -251,6 +271,7 @@ void app_event_handler(void)
 				rak1921_add_line((char *)"Node POST failed");
 			}
 		}
+#endif
 	}
 }
 

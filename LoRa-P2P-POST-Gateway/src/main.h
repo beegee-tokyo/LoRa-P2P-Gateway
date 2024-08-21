@@ -71,6 +71,7 @@ extern WisCayenne g_solution_data;
 void setup_wifi(void);
 void reconnect_wifi(void);
 bool post_request(char *payload, size_t len);
+bool post_request_raw(uint8_t *payload, size_t len);
 
 // Parser
 bool parse_send(uint8_t *data, uint16_t data_len);

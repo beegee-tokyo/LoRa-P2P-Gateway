@@ -166,6 +166,12 @@ From the MQTT broker any other device can subscribe to the topic to receive the 
 
 ### Setup the HTTP connection
 
+⚠️ The HTTP connection allows to send the sensor data either as formatted JSON or as a raw uint8_t array.    
+To switch between the two options, the USE_RAW compiler flag in _**platformio.ini**_ is used. ⚠️    
+```ini
+-D USE_RAW=0          ; 1 = send RAW payload, 0 = send JSON payload
+```
+
 If the HTTP API version of the code is used, the connection information has to be setup in the file _**`wifi_post.cpp`**_    
 <sup>(As an improvement, it is planned to add the option to setup the HTTP connection with AT commands.)</sup>
 
